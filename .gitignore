@@ -27,3 +27,4 @@ betterKao2/obj/Release/betterKao2.exe
 betterKao2/obj/Release/betterKao2.Main.resources
 betterKao2/obj/Release/betterKao2.pdb
 betterKao2/obj/Release/betterKao2.Properties.Resources.resources
+*.cache
