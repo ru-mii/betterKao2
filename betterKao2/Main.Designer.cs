@@ -139,14 +139,14 @@ namespace betterKao2
             // 
             // label_version
             // 
-            this.label_version.AutoSize = true;
             this.label_version.Font = new System.Drawing.Font("Lato", 7F);
             this.label_version.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(171)))));
-            this.label_version.Location = new System.Drawing.Point(282, 115);
+            this.label_version.Location = new System.Drawing.Point(182, 115);
             this.label_version.Name = "label_version";
-            this.label_version.Size = new System.Drawing.Size(16, 12);
+            this.label_version.Size = new System.Drawing.Size(116, 12);
             this.label_version.TabIndex = 15;
-            this.label_version.Text = "v1";
+            this.label_version.Text = "v2";
+            this.label_version.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.label_version.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_MouseDown);
             // 
             // label_directory

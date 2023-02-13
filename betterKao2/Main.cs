@@ -53,23 +53,27 @@ namespace betterKao2
 
             // check default locations for kao2
             if (File.Exists(@"C:\Program Files (x86)\Steam\steamapps\common\Kao the Kangaroo Round 2\kao2.exe"))
-            /* steam */ kaoPreloadedDirectory = @"C:\Program Files (x86)\Steam\steamapps\common\Kao the Kangaroo Round 2";
+                /* steam */
+                kaoPreloadedDirectory = @"C:\Program Files (x86)\Steam\steamapps\common\Kao the Kangaroo Round 2";
 
             else if (File.Exists(@"C:\Program Files\Epic Games\KaotheKangarooRound2o7FCt\kao2.exe"))
-            /* epic games */ kaoPreloadedDirectory = @"C:\Program Files\Epic Games\KaotheKangarooRound2o7FCt";
+                /* epic games */
+                kaoPreloadedDirectory = @"C:\Program Files\Epic Games\KaotheKangarooRound2o7FCt";
 
             else if (File.Exists(@"C:\Program Files (x86)\GOG Galaxy\Games\Kao the Kangaroo Round 2\kao2.exe"))
-            /* gog */ kaoPreloadedDirectory = @"C:\Program Files (x86)\GOG Galaxy\Games\Kao the Kangaroo Round 2";
+                /* gog */
+                kaoPreloadedDirectory = @"C:\Program Files (x86)\GOG Galaxy\Games\Kao the Kangaroo Round 2";
 
             else if (File.Exists(@"C:\ZOOM PLATFORM\Tate Multimedia\Kao the Kangaroo - Complete Kaollection\Kao the Kangaroo - Round 2\kao2.exe"))
-            /* zoom */ kaoPreloadedDirectory = @"C:\ZOOM PLATFORM\Tate Multimedia\Kao the Kangaroo - Complete Kaollection\Kao the Kangaroo - Round 2";
+                /* zoom */
+                kaoPreloadedDirectory = @"C:\ZOOM PLATFORM\Tate Multimedia\Kao the Kangaroo - Complete Kaollection\Kao the Kangaroo - Round 2";
 
             // apply if found
             if (kaoPreloadedDirectory != "") label_directory.Text = kaoPreloadedDirectory;
         }
 
         // patch byte variable
-        byte[] LocalPatch(byte[] toPatch, string toFind, string toReplace)
+        byte[] LocalPatch(byte[] toPatch, string toFind, string toReplace, int offset = 0x0)
         {
             // amount of successful bytes found, like 8B or CF, if all of them found
             // meaning it exceeds certain number then we found address of signature
@@ -127,7 +131,7 @@ namespace betterKao2
                     if (foundBytes == byteArrayToFind.Length)
                     {
                         // replace bytes
-                        int startIndex = i - byteArrayToFind.Length + 1;
+                        int startIndex = i - byteArrayToFind.Length + 1 + offset;
                         foreach (byte value in byteArrayToReplace)
                         {
                             toPatch[startIndex] = value;
@@ -207,8 +211,8 @@ namespace betterKao2
                     if (fixWaterLevelsErrorCheck) fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E", "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E");
                     else fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E", "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E");
 
-                    if (dontFreezeCheck) fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 94", "89 45 F4 33 C0 83 7D 08 01 0F 9E");
-                    else fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 9E", "89 45 F4 33 C0 83 7D 08 01 0F 94");
+                    if (dontFreezeCheck) fileByteArray = LocalPatch(fileByteArray, "C3 CC 55 8B EC 0F", "EB", 0xE);
+                    else fileByteArray = LocalPatch(fileByteArray, "C3 CC 55 8B EC 0F", "75", 0xE);
 
                     // save patched file
                     File.WriteAllBytes(kao2ExePath, fileByteArray);
