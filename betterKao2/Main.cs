@@ -187,11 +187,11 @@ namespace betterKao2
                 if (File.Exists(kao2ExePath))
                 {
                     // kill all kao2 processes
-                    while (Process.GetProcessesByName("kao2").Length > 0)
-                    {
-                        foreach (Process process in Process.GetProcessesByName("kao2"))
-                            process.Kill();
-                    }
+                    foreach (Process process in Process.GetProcessesByName("kao2"))
+                        process.Kill();
+
+                    // wait till fully closed
+                    while (Process.GetProcessesByName("kao2").Length > 0) { Thread.Sleep(1); }
 
                     // holds kao2.exe bytes
                     byte[] fileByteArray;
