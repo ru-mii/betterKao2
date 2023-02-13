@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -185,33 +186,35 @@ namespace betterKao2
                 // check if kao exists
                 if (File.Exists(kao2ExePath))
                 {
-                    // check if kao is open
-                    if (Process.GetProcessesByName("kao2").Length < 1)
+                    // kill all kao2 processes
+                    while (Process.GetProcessesByName("kao2").Length > 0)
                     {
-                        // holds kao2.exe bytes
-                        byte[] fileByteArray;
-
-                        // get kao2 file byte array
-                        if (GetFileChecksum(kao2ExePath) == "28ab645257a99ded13f141039c3d75a5") fileByteArray = Properties.Resources.steamless;
-                        else fileByteArray = File.ReadAllBytes(kao2ExePath);
-
-                        // patch whats selected or patch back whats not selected
-                        if (skipIntroCheck) fileByteArray = LocalPatch(fileByteArray, "8B 4D E4 3B 4D EC", "E9 F7 00 00 00 90");
-                        else fileByteArray = LocalPatch(fileByteArray, "E9 F7 00 00 00 90", "8B 4D E4 3B 4D EC");
-
-                        if (fixWaterLevelsErrorCheck) fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E", "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E");
-                        else fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E", "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E");
-
-                        if (dontFreezeCheck) fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 94", "89 45 F4 33 C0 83 7D 08 01 0F 9E");
-                        else fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 9E", "89 45 F4 33 C0 83 7D 08 01 0F 94");
-
-                        // save patched file
-                        File.WriteAllBytes(kao2ExePath, fileByteArray);
-
-                        // show success message
-                        ShowInfo("kao2 patched successfully");
+                        foreach (Process process in Process.GetProcessesByName("kao2"))
+                            process.Kill();
                     }
-                    else ShowError("kao2 needs to be closed");
+
+                    // holds kao2.exe bytes
+                    byte[] fileByteArray;
+
+                    // get kao2 file byte array
+                    if (GetFileChecksum(kao2ExePath) == "28ab645257a99ded13f141039c3d75a5") fileByteArray = Properties.Resources.steamless;
+                    else fileByteArray = File.ReadAllBytes(kao2ExePath);
+
+                    // patch whats selected or patch back whats not selected
+                    if (skipIntroCheck) fileByteArray = LocalPatch(fileByteArray, "8B 4D E4 3B 4D EC", "E9 F7 00 00 00 90");
+                    else fileByteArray = LocalPatch(fileByteArray, "E9 F7 00 00 00 90", "8B 4D E4 3B 4D EC");
+
+                    if (fixWaterLevelsErrorCheck) fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E", "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E");
+                    else fileByteArray = LocalPatch(fileByteArray, "8B 09 50 8B 51 40 FF D2 85 C0 EB 7E", "8B 09 50 8B 51 40 FF D2 85 C0 7D 7E");
+
+                    if (dontFreezeCheck) fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 94", "89 45 F4 33 C0 83 7D 08 01 0F 9E");
+                    else fileByteArray = LocalPatch(fileByteArray, "89 45 F4 33 C0 83 7D 08 01 0F 9E", "89 45 F4 33 C0 83 7D 08 01 0F 94");
+
+                    // save patched file
+                    File.WriteAllBytes(kao2ExePath, fileByteArray);
+
+                    // show success message
+                    ShowInfo("kao2 patched successfully");
                 }
                 else ShowError("kao2.exe doesn't exist");
             }
