@@ -154,7 +154,6 @@
     <None Include="Resources\buttonCloseClick.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ico.ico" />
     <Content Include="logo.ico" />
     <None Include="Resources\steamless.exe" />
     <None Include="Resources\buttonPatchDisabled.png" />
