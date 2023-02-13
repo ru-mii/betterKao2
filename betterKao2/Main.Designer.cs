@@ -1,4 +1,4 @@
-﻿namespace betterKao2
+namespace betterKao2
 {
     partial class Main
     {
@@ -92,7 +92,7 @@
             this.label_skipIntro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(30)))));
             this.label_skipIntro.Font = new System.Drawing.Font("Lato", 11F);
             this.label_skipIntro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label_skipIntro.Location = new System.Drawing.Point(37, 44);
+            this.label_skipIntro.Location = new System.Drawing.Point(37, 43);
             this.label_skipIntro.Name = "label_skipIntro";
             this.label_skipIntro.Size = new System.Drawing.Size(123, 18);
             this.label_skipIntro.TabIndex = 11;
@@ -105,7 +105,7 @@
             this.label_fixWaterError.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(30)))));
             this.label_fixWaterError.Font = new System.Drawing.Font("Lato", 11F);
             this.label_fixWaterError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label_fixWaterError.Location = new System.Drawing.Point(37, 65);
+            this.label_fixWaterError.Location = new System.Drawing.Point(37, 64);
             this.label_fixWaterError.Name = "label_fixWaterError";
             this.label_fixWaterError.Size = new System.Drawing.Size(149, 18);
             this.label_fixWaterError.TabIndex = 12;
@@ -118,7 +118,7 @@
             this.label_dontFreeze.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(30)))));
             this.label_dontFreeze.Font = new System.Drawing.Font("Lato", 11F);
             this.label_dontFreeze.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.label_dontFreeze.Location = new System.Drawing.Point(37, 86);
+            this.label_dontFreeze.Location = new System.Drawing.Point(37, 85);
             this.label_dontFreeze.Name = "label_dontFreeze";
             this.label_dontFreeze.Size = new System.Drawing.Size(206, 18);
             this.label_dontFreeze.TabIndex = 13;
@@ -324,4 +324,3 @@
         private System.Windows.Forms.Label label_directory;
     }
 }
-
